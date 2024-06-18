@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: EmailService
+
+  artemis:
+    broker-url: ${ARTEMIS_BROKER_URL}
+    user: ${ARTEMIS_USER}
+    password: ${ARTEMIS_PASSWORD}
+
+server:
+  port: 8081
+
+app:
+  queues:
+    email_queue: ${EMAIL_SERVICE}
