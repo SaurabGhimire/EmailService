@@ -18,20 +18,30 @@ public class Email {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String emailTo;
-    private String emailFrom;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "email_user_to",
+            joinColumns = @JoinColumn(name = "email_user_to"),
+            inverseJoinColumns = @JoinColumn(name = "email_user_id"))
+    private Collection<EmailUser> emailTo;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "email_user_from_id", referencedColumnName = "id")
+    private EmailUser emailFrom;
     private String subject;
-    private String message;
+    private String text;
+    private String category;
 
-    @ElementCollection
-    @CollectionTable(name = "email_cc", joinColumns = @JoinColumn(name = "email_id"))
-    @Column(name = "cc_email")
-    private Collection<String> cc;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "email_cc",
+            joinColumns = @JoinColumn(name = "email_cc_id"),
+            inverseJoinColumns = @JoinColumn(name = "email_user_id"))
+    private Collection<EmailUser> cc;
 
-    @ElementCollection
-    @CollectionTable(name = "email_bcc", joinColumns = @JoinColumn(name = "email_id"))
-    @Column(name = "bcc_email")
-    private Collection<String> bcc;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "email_bcc",
+            joinColumns = @JoinColumn(name = "email_bcc_id"),
+            inverseJoinColumns = @JoinColumn(name = "email_user_id"))
+    private Collection<EmailUser> bcc;
 
     // Uncomment and adjust if you add attachments
     // private List<Attachment> attachments;
