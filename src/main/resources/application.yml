@@ -27,3 +27,6 @@ server:
 app:
   queues:
     email_queue: ${EMAIL_SERVICE}
+  email_api:
+    token: ${EMAIL_API_TOKEN}
+    url: ${EMAIL_API_URL}
